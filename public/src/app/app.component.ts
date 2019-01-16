@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ChatService } from './chat.service';
-import * as $ from 'jquery';
 
 @Component({
   selector: 'app-root',
@@ -8,18 +6,30 @@ import * as $ from 'jquery';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  isCollapsed = false;
+  username: string;
 
-  constructor(private chatService: ChatService) {}
+  constructor() {}
 
   ngOnInit() {
-    $(document).ready(() => {
-      $('#menu-toggle').click((event) => {
-        event.preventDefault();
-        $('#wrapper').toggleClass('toggled');
-      });
-    });
+    this.getUsername();
   }
-  
 
+  getUsername() {
+    let username = localStorage.getItem('username');
+
+    if (!username) {
+      localStorage.setItem('username', 'anonymous');
+      username = 'anonymous';
+    }
+
+    this.username = username;
+  }
+
+  onUsernameSubmit() {
+    localStorage.setItem('username', this.username);
+  }
+
+  isUsernameInvalid() {
+    return !this.username.length;
+  }
 }

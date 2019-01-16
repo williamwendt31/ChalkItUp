@@ -1,0 +1,43 @@
+<div id="wrapper">
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand">
+                <form class="form-inline my-2 my-sm-0" (submit)="onNewChatSubmit()">
+                    <input type="text" name="newChatRoom" [(ngModel)]="newChatRoom" class="form-control newRoom mx-2" placeholder="new room" />
+                    <button class="btn btn-outline-success my-2 menu" type="submit" [disabled]="isNewChatInvalid()"><i class="material-icons">add</i></button>
+                </form>
+            </li>
+            <li>
+                <a (click)="changeCurrentRoom()" class="pointer">Chat Room 1</a>
+            </li>
+            <li>
+                <a href="#">Overview</a>
+            </li>
+            <li>
+                <a href="#">Events</a>
+            </li>
+            <li>
+                <a href="#">About</a>
+            </li>
+            <li>
+                <a href="#">Services</a>
+            </li>
+            <li>
+                <a href="#">Contact</a>
+            </li>
+        </ul>
+    </div>
+    <!-- /#sidebar-wrapper -->
+  
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+            <a href="#menu-toggle" class="btn btn-outline-secondary menu" id="menu-toggle"><i class="material-icons">menu</i></a>
+            <app-chatrooms *ngIf="currentRoom" [currentRoom]="currentRoom"></app-chatrooms>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+  
+  </div>
+  <!-- /#wrapper -->

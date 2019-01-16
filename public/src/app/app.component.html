@@ -1,42 +1,24 @@
-<div id="wrapper">
-  <!-- Sidebar -->
-  <div id="sidebar-wrapper">
-      <ul class="sidebar-nav">
-          <li class="sidebar-brand">
-              <a href="#">Chalk It Up</a>
-          </li>
-          <li>
-              <a href="#">Chat Room 1</a>
-          </li>
-          <li>
-              <a href="#">Shortcuts</a>
-          </li>
-          <li>
-              <a href="#">Overview</a>
-          </li>
-          <li>
-              <a href="#">Events</a>
-          </li>
-          <li>
-              <a href="#">About</a>
-          </li>
-          <li>
-              <a href="#">Services</a>
-          </li>
-          <li>
-              <a href="#">Contact</a>
-          </li>
-      </ul>
-  </div>
-  <!-- /#sidebar-wrapper -->
+<div class="whole-window">
+    <nav class="navbar navbar-expand-sm navbar-light bg-light">
+        <a class="navbar-brand" href="#">Chalk It Up</a>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                
+            </ul>
+            <form class="form-inline my-2 my-lg-0 d-sm-none d-md-inline-block" (submit)="onUsernameSubmit()">
+                <input type="search" name="username" [(ngModel)]="username" class="form-control change mr-sm-2" placeholder="change username" />
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" [disabled]="isUsernameInvalid()">change username</button>
+            </form>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <form class="form-inline my-2 my-lg-0 d-inline-block d-md-none col-sm-12" (submit)="onUsernameSubmit()">
+                <input type="search" name="username" [(ngModel)]="username" class="form-control change mr-sm-2" placeholder="change username" />
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" [disabled]="isUsernameInvalid()">change username</button>
+            </form>
+        </div>
+    </div>
 
-  <!-- Page Content -->
-  <div id="page-content-wrapper">
-      <div class="container-fluid">
-          <a href="#menu-toggle" class="btn btn-outline-secondary" id="menu-toggle">Menu</a>
-      </div>
-  </div>
-  <!-- /#page-content-wrapper -->
-
+    <app-sidenav [username]="username"></app-sidenav>
 </div>
-<!-- /#wrapper -->
