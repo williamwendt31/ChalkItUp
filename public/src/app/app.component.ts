@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ChatService } from './chat.service';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-root',
@@ -7,12 +8,17 @@ import { ChatService } from './chat.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'Chalk It Up';
+  isCollapsed = false;
 
   constructor(private chatService: ChatService) {}
 
   ngOnInit() {
-    this.chatService.sendMessage('hello from client');
+    $(document).ready(() => {
+      $('#menu-toggle').click((event) => {
+        event.preventDefault();
+        $('#wrapper').toggleClass('toggled');
+      });
+    });
   }
   
 

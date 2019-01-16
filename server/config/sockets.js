@@ -4,9 +4,12 @@ module.exports = (io) => {
     io.sockets.on('connection', (socket) => {
         console.log('Client connected with id: ' + socket.id);
 
-        socket.on('message', (data) => {
-            console.log(data);
+        socket[socket.id] = "Anonymous";
+
+        socket.on('changeUsername', (data) => {
+            socket[socket.id] = data.username;
         });
 
+        
     });
 }
