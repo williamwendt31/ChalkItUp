@@ -22,7 +22,7 @@ module.exports = {
         });
     },
     newChatRoom: (data, callback) => {
-        Chat.create({ roomName: data.roomName }, (err, newChatRoom) => {
+        Chat.create({ name: data.roomName }, (err, newChatRoom) => {
             if (err) {
                 return callback({ error: err });
             } else {
@@ -46,6 +46,19 @@ module.exports = {
                         return callback({ error: err });
                     } else {
                         return callback({ success: chatrooms });
+                    }
+                });
+            }
+        });
+    },
+    updateNumberOfUsersInRoom: (previousId, currentId, previousRoomAmount, currentRoomAmount) => {
+        Chat.findByIdAndUpdate(previousId, { $set: { number_of_users: previousRoomAmount }}, (err) => {
+            if (err) {
+                console.log(err);
+            } else {
+                Chat.findByIdAndUpdate(currentId, { $set: { number_of_users: currentRoomAmount }}, (err) => {
+                    if (err) {
+                        console.log(err);
                     }
                 });
             }

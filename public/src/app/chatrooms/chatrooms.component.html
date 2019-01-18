@@ -1,3 +1,22 @@
-<p>
-  chatrooms works! {{ currentRoom }}
-</p>
+<div id="chatroom" class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card long p-2 shadow">
+                <div class="card-body">
+                    <h5 class="card-title">{{ currentRoom.name }} | {{ numberOfUsers }} user(s) in this chat</h5>
+                    <a (click)="onDeleteRoom(currentRoom._id)" class="pointer">destroy room</a>
+                    <hr class="divider"  />
+                    <div id="messages">
+                        <p *ngFor="let message of currentRoom.messages" class="messages"><{{ message.username }}> - {{ message.message }}</p>
+                    </div>
+                    <form class="newMessage" (submit)="onNewMessageSubmit()">
+                        <input type="search" name="newMessage" [(ngModel)]="newMessage" class="form-control msg" placeholder="Send a message ..." />
+                        <div class="sendMessage">
+                            <button class="btn btn-outline-success my-2 my-sm-0 send" type="submit" [disabled]="isNewMessageInvalid()">send message</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

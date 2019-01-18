@@ -9,8 +9,9 @@ export class ChatService {
 
   constructor(private socket: Socket) { }
 
-  allChatRooms = this.socket.fromEvent<string[]>('updateChatRooms'); //array of Chat Rooms
+  allChatRooms = this.socket.fromEvent<ChatRoom[]>('updateChatRooms'); //array of Chat Rooms
   currentChatRoom = this.socket.fromEvent<ChatRoom>('currentChatRoom'); //current Chat Room
+  updateNumberOfUsers = this.socket.fromEvent<number>('updateNumberOfUsers'); //update number of users in chat room
 
   getChatRooms() {
     this.socket.emit('getChatRooms');

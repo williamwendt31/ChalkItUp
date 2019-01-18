@@ -7,7 +7,7 @@ const MessageSchema = mongoose.Schema({
 
 const ChatRoomSchema = mongoose.Schema({
     name: { type: String, required: true },
-    messages: [MessageSchema]
+    messages: [MessageSchema],
 }, { timestamps: true });
 
 mongoose.model('Message', MessageSchema);

@@ -8,19 +8,27 @@ module.exports = (io) => {
         
         const safeJoin = (currentId) => {
             socket.leave(previousId);
+            socket.join(currentId);
+            
+            let previousRoom = io.sockets.adapter.rooms[`${previousId}`];
+            let currentRoom = io.sockets.adapter.rooms[`${currentId}`];
 
-            if (currentId) {
-                socket.join(currentId);
+            if (previousRoom) {
+                io.to(`${previousId}`).emit('updateNumberOfUsers', previousRoom.length);
             }
+
+            if (currentRoom) {
+                io.to(`${currentId}`).emit('updateNumberOfUsers', currentRoom.length);
+            }
+
             previousId = currentId;
-        };
+        }
 
         socket.on('getChatRoom', (data) => {
-            safeJoin(data.roomId);
-
             chatController.getChatRoom(data, (response) => {
                 if (response.success) {
                     socket.emit('currentChatRoom', response.success);
+                    safeJoin(data.roomId);
                 }
             });
         });
@@ -28,10 +36,9 @@ module.exports = (io) => {
         socket.on('newChatRoom', (data) => {
             chatController.newChatRoom(data, (response) => {
                 if (response.success) {
-                    console.log(response.success.chatRooms);
-                    // safeJoin(response.success.newChatRoom._id); //join newly created chatroom
-                    // socket.emit('currentChatRoom', response.success.newChatRoom);
-                    // io.emit('updateChatRooms', response.success.chatRooms); //update list of chatrooms
+                    socket.emit('currentChatRoom', response.success.newChatRoom);
+                    io.emit('updateChatRooms', response.success.chatRooms); //update list of chatrooms
+                    safeJoin(response.success.newChatRoom._id); //join newly created chatroom
                 }
             });
         });
@@ -55,10 +62,9 @@ module.exports = (io) => {
         socket.on('deleteChatRoom', (data) => {
             chatController.deleteChatRoom(data, (response) => {
                 if (response.success) {
-                    safeJoin(null);
-
                     io.emit('updateChatRooms', response.success);
                     io.to(`${data.roomId}`).emit('currentChatRoom', null);
+                    safeJoin(null);
                 }
             });
         });

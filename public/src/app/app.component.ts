@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
   getUsername() {
     let username = localStorage.getItem('username');
 
+    //if username doesn't exist, create new named 'anonymous'
     if (!username) {
       localStorage.setItem('username', 'anonymous');
       username = 'anonymous';
@@ -26,7 +27,9 @@ export class AppComponent implements OnInit {
   }
 
   onUsernameSubmit() {
-    localStorage.setItem('username', this.username);
+    if (this.username.length) {
+      localStorage.setItem('username', this.username);
+    }
   }
 
   isUsernameInvalid() {

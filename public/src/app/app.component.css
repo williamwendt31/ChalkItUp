@@ -6,6 +6,29 @@ body {
     overflow-x: hidden;
 }
 
+button {
+    color: indigo;
+    border-color: indigo;
+    background-color: white;
+}
+
+button:hover {
+    color: white;
+    border-color: indigo;
+    background-color: indigo;
+}
+
+button:disabled {
+    color: indigo;
+    background-color: transparent;
+}
+
 .change {
     width: 12rem !important;
 }
+
+#changeUsername {
+    display: block;
+    text-align: right;
+}
+
